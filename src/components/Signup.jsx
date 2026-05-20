@@ -97,26 +97,34 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!validateForm()) return;
+        dispatch(clearError());
 
-        const submitData = new FormData();
+        const isValid = validateForm();
+        if (!isValid) return;
 
-        submitData.append("name", formData.name);
-        submitData.append("email", formData.email);
-        submitData.append("password", formData.password);
-        submitData.append("phone", formData.phone);
-        submitData.append("address", formData.address);
+        try {
+            const submitData = new FormData();
 
-        if (formData.image) {
-            submitData.append("image", formData.image);
-        }
+            submitData.append("name", formData.name);
+            submitData.append("email", formData.email);
+            submitData.append("password", formData.password);
+            submitData.append("phone", formData.phone);
+            submitData.append("address", formData.address);
 
-        const result = await dispatch(
-            registerRestaurants(submitData)
-        );
+            if (formData.image) {
+                submitData.append("image", formData.image);
+            }
 
-        if (result.meta.requestStatus === "fulfilled") {
-            navigate("/login");
+            const result = await dispatch(
+                registerRestaurants(submitData)
+            );
+
+            if (result?.meta?.requestStatus === "fulfilled") {
+                navigate("/login");
+            }
+
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -205,7 +213,7 @@ const Signup = () => {
                             <div className="flex items-center bg-white/5 border border-white/10 rounded-2xl px-4">
                                 <FiPhone className="text-gray-400 text-lg" />
                                 <input
-                                    type="number"
+                                    type="tel"
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleChange}
@@ -252,7 +260,7 @@ const Signup = () => {
 
                         <button
                             type="submit"
-                            disabled={loading === true ? true : false}
+                            disabled={loading}
                             className={`w-full bg-gradient-to-r from-red-500 to-orange-400 py-4 rounded-2xl font-semibold text-white flex items-center justify-center gap-2 mt-6 transition-all ${loading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"}`}>
                             {loading ? "Creating Account..." : "Create Account"}
 

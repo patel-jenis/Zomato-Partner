@@ -8,7 +8,11 @@ import {
     FiArrowRight,
 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { clearError, loginRestaurant } from "../redux/slices/authSlice";
+
+import {
+    clearError,
+    loginRestaurant,
+} from "../redux/slices/authSlice";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -33,7 +37,7 @@ const Login = () => {
 
         setErrors((prev) => ({
             ...prev,
-            [e.target.name]: ""
+            [e.target.name]: "",
         }));
     };
 
@@ -55,13 +59,22 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        dispatch(clearError());
+
         const isValid = validateForm();
         if (!isValid) return;
 
-        const result = await dispatch(loginRestaurant(formData));
+        try {
+            const result = await dispatch(
+                loginRestaurant(formData)
+            );
 
-        if (result.meta.requestStatus === "fulfilled") {
-            navigate("/");
+            if (result?.meta?.requestStatus === "fulfilled") {
+                navigate("/");
+            }
+
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -102,7 +115,7 @@ const Login = () => {
                         </p>
                     </div>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-5">
                             <label className="text-sm text-gray-300 mb-2 block">
                                 Email Address
@@ -141,10 +154,16 @@ const Login = () => {
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
                                     className="text-gray-400 text-lg"
                                 >
-                                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                                    {showPassword ? (
+                                        <FiEyeOff />
+                                    ) : (
+                                        <FiEye />
+                                    )}
                                 </button>
                             </div>
                             {errors.password && (
@@ -162,12 +181,11 @@ const Login = () => {
 
                         <button
                             type="submit"
-                            onClick={handleSubmit}
-                            disabled={loading === true ? true : false}
+                            disabled={loading}
                             className={`w-full bg-gradient-to-r from-red-500 to-orange-400 py-4 rounded-2xl font-semibold text-white flex items-center justify-center gap-2 shadow-lg transition-all ${loading
                                 ? "opacity-70 cursor-not-allowed"
                                 : "hover:opacity-90"
-                                }`}
+                            }`}
                         >
                             {loading ? "Signing In..." : "Sign In"}
                             {!loading && <FiArrowRight />}
@@ -176,10 +194,7 @@ const Login = () => {
                         <div className="mt-8 text-center">
                             <p className="text-gray-400">
                                 Don't have an account?
-                                <Link
-                                    to="/signup"
-                                    className="text-orange-400 hover:text-orange-300 ml-2 font-medium"
-                                >
+                                <Link to="/signup" className="text-orange-400 hover:text-orange-300 ml-2 font-medium">
                                     Create Account
                                 </Link>
                             </p>
