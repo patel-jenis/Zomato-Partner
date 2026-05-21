@@ -1,16 +1,48 @@
-# React + Vite
+# Zomato Partner Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Zomato Partner Clone built using React, Vite, Redux Toolkit, Tailwind CSS and Node.js backend integration.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+- Restaurant Authentication
+- Dashboard
+- Add / Edit / Delete Foods
+- Profile Management
+- Responsive Design
+- Protected Routes
+- Redux Toolkit State Management
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- React.js
+- Vite
+- Tailwind CSS
+- Redux Toolkit
+- React Router DOM
+
+---
+
+## 📂 Folder Structure
+
+```bash
+src/
+ ├── components/
+ ├── pages/
+ ├── redux/
+ ├── assets/
+ ├── App.jsx
+ └── main.jsx
+```
+
+---
+
+## 🎥 Demo Video
+
+[Watch Demo Video](https://drive.google.com/file/d/1tTNKhP7-6mdxPvO9fOp7W-zuyV6fB17k/view?usp=sharing)
+
+---
